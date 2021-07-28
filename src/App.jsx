@@ -5,12 +5,9 @@ export const App = () => {
   // フォームに入力されたテキストを保管するState
   const [todoText, setTodoText] = useState("");
   // 未完了のTODOを保管するState
-  const [incompleteTodos, setIncompleteTodos] = useState([
-    "ああああああ",
-    "いいいいいいい"
-  ]);
+  const [incompleteTodos, setIncompleteTodos] = useState([]);
   // 完了のTODOを保管するState
-  const [completeTodos, setCompleteTodos] = useState(["うううううう"]);
+  const [completeTodos, setCompleteTodos] = useState([]);
 
   // 入力内容のState保持
   // event.targrt.valueは使い方を覚えておく（eventにはonChangeイベントの内容が入っている）
