@@ -1,5 +1,10 @@
 import React, { useState } from "react";
+// CSS
 import "./styles.css";
+// コンポーネント
+import { InputTodo } from "./components/InputTodo";
+import { IncompleteTodos } from "./components/IncompleteTodos";
+import { CompleteTodos } from "./components/CompleteTodos";
 
 export const App = () => {
   // フォームに入力されたテキストを保管するState
@@ -53,48 +58,18 @@ export const App = () => {
 
   return (
     <>
-      <div className="input-area">
-        <input
-          placeholder="TODOを入力"
-          value={todoText}
-          onChange={onChangeTodoText}
-        />
-        <button onClick={onClickAdd}>追加</button>
-      </div>
-      <div className="incomplete-area">
-        <p className="title">未完了のTODO</p>
-        <ul>
-          {/* mapの第二引数indexは要素の番号（初めは0から)が入る */}
-          {incompleteTodos.map((todo, index) => {
-            return (
-              // 仮想DOMは変更前と変更後で差分だけ抽出し、差分のみ実際のDOMに反映する
-              // map等でループでレンダリングされた場合、何個目の要素なのか正確に比較するためにkeyで目印をつける
-              <div key={todo} className="list-row">
-                <li>{todo}</li>
-                {/* 関数に引数を渡す場合はアロー関数で新しく関数を定義する必要がある
-                onClick={onClickComplete(index)}はダメ */}
-                <button onClick={() => onClickComplete(index)}>完了</button>
-                {/* 関数に引数を渡す場合はアロー関数で新しく関数を定義する必要がある
-                onClick={onClickDelete(index)}はダメ */}
-                <button onClick={() => onClickDelete(index)}>削除</button>
-              </div>
-            );
-          })}
-        </ul>
-      </div>
-      <div className="complete-area">
-        <p className="title">完了のTODO</p>
-        <ul>
-          {completeTodos.map((todo, index) => {
-            return (
-              <div key={todo} className="list-row">
-                <li>{todo}</li>
-                <button onClick={() => onClickBack(index)}>戻す</button>
-              </div>
-            );
-          })}
-        </ul>
-      </div>
+      {/* propsを渡す(props名=propsの値) */}
+      <InputTodo
+        todoText={todoText}
+        onChange={onChangeTodoText}
+        onClick={onClickAdd}
+      />
+      <IncompleteTodos
+        todos={incompleteTodos}
+        onClickComplete={onClickComplete}
+        onClickDelete={onClickDelete}
+      />
+      <CompleteTodos todos={completeTodos} onClickBack={onClickBack} />
     </>
   );
 };
